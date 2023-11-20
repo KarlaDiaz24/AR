@@ -26,7 +26,7 @@ export class Tab2Page implements OnInit {
   }
 
   navigateBack() {
-    this.router.navigate(['tabs/tab1']);
+    this.router.navigate(['/tab1']);
   }
 
   async getZonas() {

@@ -3,28 +3,26 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/tab2"></ion-back-button>
     </ion-buttons>
-    <ion-title>
-      El vallecito
-    </ion-title>
+    <ion-title>{{laZona?.nombre}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding" [fullscreen]="true">
 
-    <img alt="Silhouette of mountains" src="https://cdn.glitch.global/3404feab-1cd6-4c2b-a0d6-1cb6b77da0d0/elvallecito.jpg?v=1699737283613" />
-    <ion-card-header>
-      <ion-card-subtitle><ion-icon name="location-outline"></ion-icon>
-        Coordenadas: 32.53578561611551, -116.09467641041823</ion-card-subtitle>
+  <img
+  alt="Silhouette of mountains"
+  src="{{laZona?.img}}"
+  />
+  <ion-card-header>
+      <ion-card-subtitle>
+        <ion-icon name="location-outline"></ion-icon>
+        {{laZona?.latitud}}, {{laZona?.longitud}}
+        </ion-card-subtitle>
     </ion-card-header>
 
     <ion-card-content>
-      El Vallecito, también conocido como Vallecitos es una zona arqueológica que resguarda uno de los 23 sitios de Arte Rupestre en Baja California ubicado en la parte norte de la Sierra de Juárez, al noreste del poblado de La Rumorosa, en el municipio de Tecate, Baja California, México.
+      {{laZona?.descripcion}}
     </ion-card-content>
 
-    <ion-row class="button1">
-    <ion-button color="medium">
-      <ion-icon slot="start" name="eye"></ion-icon>
-      Ver en AR
-    </ion-button>
-    </ion-row>
 </ion-content>
+

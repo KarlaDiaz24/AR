@@ -3,13 +3,13 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/tab1"></ion-back-button>
     </ion-buttons>
-    <ion-title> Baja California </ion-title>
+    <ion-title>{{estado}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding" [fullscreen]="true">
   <ion-list>
-        <ion-item *ngFor="let zona of zonas | keyvalue" href="/tab3">
+        <ion-item *ngFor="let zona of zonas | keyvalue" routerLink="/tab3" [queryParams]="{zona: zona.key, estado: estado}">
           <ion-thumbnail slot="start">
             <img
               alt="Silhouette of mountains"
