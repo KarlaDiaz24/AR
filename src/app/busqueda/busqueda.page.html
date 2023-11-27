@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Buscar Zona</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="#"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar
+    [(ngModel)]="searchTerm"
+    (ionChange)="filtrarZonas()"></ion-searchbar>
+  </ion-toolbar>
+
+<ion-content [fullscreen]="true">
+
+  <ion-card *ngFor="let zona of zonasFiltradas" routerLink="/tab3" [queryParams]="{estado: zona.estado, zona: zona.zona}">
+    <ion-card-header>
+      <ion-card-title> {{zona.zona}} </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      Mas informacion
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+

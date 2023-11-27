@@ -3,16 +3,19 @@
     <ion-title>
       Zonas Arqueológicas de México
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/busqueda">
+        <ion-icon slot="icon-only" name="search" ></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-toolbar>
-  <ion-searchbar></ion-searchbar>
-</ion-toolbar>
+
 <ion-content class="ion-padding" [fullscreen]="true">
   <div class="grid-container">
     <ion-card routerLink="/tab2" [queryParams]="{estado: 'BAJA CALIFORNIA'}"  style="background-image: url('https://cdn.glitch.global/3404feab-1cd6-4c2b-a0d6-1cb6b77da0d0/BajaCalifornia.jpg?v=1699507199059'); background-size: cover; background-position: center;">
-     <ion-card-header style="background: rgba(0, 0, 0, 0.3); color: white;">
-      <ion-card-title color="light">Baja California</ion-card-title>
+    <ion-card-header style="background: rgba(0, 0, 0, 0.3); color: white;">
+      <ion-card-title color="light">Baja California    </ion-card-title>
     </ion-card-header>
   </ion-card>
 

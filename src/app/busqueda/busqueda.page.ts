@@ -1,26 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ServicesService } from '../services/services.service';
-import { RouterLink } from '@angular/router';
 
 
 @Component({
-  selector: 'app-tab1',
-  templateUrl: 'tab1.page.html',
-  styleUrls: ['tab1.page.scss'],
+  selector: 'app-busqueda',
+  templateUrl: './busqueda.page.html',
+  styleUrls: ['./busqueda.page.scss'],
 })
-export class Tab1Page implements OnInit{
-
+export class BusquedaPage implements OnInit {
 
   zonasArqueologicas: any[] = [];
   zonas: any;
   searchTerm: string = '';
   zonasFiltradas: any;
+  laZona: any;
 
 
   constructor(private http: HttpClient, private db: ServicesService) {
-    this.ObtenerZonas()
+    this.ObtenerZonas();
+    this.filtrarZonas();
+    this.getZonas();
+
   }
+
   ngOnInit(): void {
     this.filtrarZonas();
     this.getZonas();
@@ -70,7 +73,7 @@ export class Tab1Page implements OnInit{
         }
         else {
           this.zonasFiltradas = this.zonas!.filter((zona: any) =>
-          this.normalizarTexto(zona).includes(this.normalizarTexto(this.searchTerm))
+          this.normalizarTexto(zona.zona).includes(this.normalizarTexto(this.searchTerm))
         );
           console.log(this.zonasFiltradas);
         }
@@ -81,6 +84,4 @@ export class Tab1Page implements OnInit{
           .replace(/[\u0300-\u036f]/g, "")
           .toLowerCase();
       }
-
-
 }

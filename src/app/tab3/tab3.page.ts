@@ -23,7 +23,9 @@ export class Tab3Page implements OnInit {
   map!: GoogleMap;
 
   ionViewDidEnter() {
-    this.CreateMap();
+    this.getZonas().then(() => {
+      this.CreateMap();
+    })
   }
 
   async CreateMap() {
