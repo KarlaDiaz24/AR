@@ -1,66 +1,67 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ServicesService } from '../services/services.service';
-import { ActivatedRoute, Router, NavigationEnd  } from '@angular/router';
-import { GoogleMap, Marker } from '@capacitor/google-maps';
-import { environment } from 'src/environments/environment';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 
 declare var google: any;
+interface Marker {
+  position: {
+    lat: number,
+    lng: number,
+  };
+}
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page implements OnInit {
-  constructor(private db: ServicesService, private route: ActivatedRoute, private router: Router) {}
+  constructor(private db: ServicesService, private route: ActivatedRoute, private router: Router) { }
 
-   //map = null;
+  map = null;
   estado: any;
   zona: any;
   laZona: any;
+  markers: Marker | undefined;
+  //map
+  @ViewChild('map') mapView!: ElementRef;
 
-//map
-  @ViewChild('map')mapRef!: ElementRef;
-  map!: GoogleMap;
 
+  ionViewWillEnter() {
+    this.getZonas();
+  }
   ionViewDidEnter() {
-    this.getZonas().then(() => {
-      this.CreateMap();
-    })
+    this.loadMap();
   }
 
-  async CreateMap() {
-    this.map = await GoogleMap.create({
-    id: 'my-map',
-    apiKey: environment.mapsKey,
-    element: this.mapRef.nativeElement,
-    forceCreate: true,
-    config: {
-      center: {
+  loadMap() {
+    // create a new map by passing HTMLElement
+    const mapEle: HTMLElement = document.getElementById('map')!;
+    // create LatLng object
+    const myLatLng = { lat: this.laZona.latitud, lng: this.laZona.longitud };
+    // create map
+    this.map = new google.maps.Map(mapEle, {
+      center: myLatLng,
+      zoom: 12
+    });
+
+    google.maps.event.addListenerOnce(this.map, 'idle', () => {
+      this.renderMarkers();
+      mapEle.classList.add('show-map');
+    });
+  }
+  renderMarkers() {
+    this.addMarker();
+  }
+
+  addMarker() {
+    return new google.maps.Marker({
+      position: {
         lat: this.laZona.latitud,
         lng: this.laZona.longitud,
       },
-      zoom: 15,
-    },
-    });
-    this.addMarkers();
-  }
-  async addMarkers() {
-    if (this.laZona && this.laZona.latitud && this.laZona.longitud) {
-    const markers: Marker =
-      {
-        coordinate: {
-          lat: this.laZona.latitud,
-        lng: this.laZona.longitud,
-        }
-      };
-    const result = await this.map.addMarker(markers);
-    console.log(result);
-
-    this.map.setOnMarkerClickListener(async (marker) => {
-      console.log(marker);
+      map: this.map,
     });
   }
-}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -68,7 +69,6 @@ export class Tab3Page implements OnInit {
       this.zona = params['zona'];
       console.log(this.estado, this.zona);
     });
-    this.getZonas();
   }
 
   navigateBack() {
@@ -86,4 +86,3 @@ export class Tab3Page implements OnInit {
     }
   }
 }
-

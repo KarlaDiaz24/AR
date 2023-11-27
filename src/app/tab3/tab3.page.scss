@@ -24,3 +24,22 @@ capacitor-google-map {
   width: 100%;
 }
 
+ion-content {
+  #map {
+    height: 400px;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 150ms ease-in;
+    display: block;
+    &.show-map {
+      opacity: 1;
+    }
+  }
+}
+body {
+  background-color: none;
+}
+
+.transparent {
+  --background: transparent;
+}
